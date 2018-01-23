@@ -1,9 +1,27 @@
 var map;
-var largeInfoWindow = new google.maps.InfoWindow();
-var bounds = new google.maps.LatLngBounds();
+var largeInfoWindow;
+var bounds;
+
 
 var viewModel = function () {
     var self = this;
+
+    self.sidebarSize = ko.observable('30%');
+    self.mapSize = ko.observable('80%');
+    self.contentVisible = ko.observable(true);
+
+    self.toggleSidebar = function() {
+        if(self.sidebarSize() === '30%') {
+            console.log('change small');
+            self.sidebarSize('5%');
+            self.mapSize('95%');
+            self.contentVisible(false);
+        } else {
+            self.sidebarSize('30%');
+            self.mapSize('80%');
+            self.contentVisible(true);
+        }
+    };
 
     //create empty list for markers
     self.markers = ko.observableArray([]);
@@ -40,12 +58,6 @@ var viewModel = function () {
         {title: 'Sugamo Station', location: {lat: 35.733419, lng: 139.739285}},
         {title: 'Otsuka Station', location: {lat: 35.731785, lng: 139.728227}}
     ]);
-
-    //initlize the map and focus on Tokyo
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.690202, lng: 139.716459},
-        zoom: 12
-    });
 
     //Add each marker to the map based on locations in array
     for (var i = 0; i < self.locations_ko().length; i++) {
@@ -142,10 +154,6 @@ function getWikiData(query, infoWindow) {
     var wurl = "http://en.wikipedia.org/w/api.php";
     var wikiData = 'No wiki data found';
 
-    var wikiRequestTimeout = setTimeout(function(){
-        wikiData = 'failed to get wikipedia resources';
-    }, 8000);
-
     $.ajax({
         url: wurl,
         data: {
@@ -164,13 +172,30 @@ function getWikiData(query, infoWindow) {
             var citation = x.query.search[0].title + 'In Wikipedia. Retrieved ' + now + ", from https://en.wikipedia.org/wiki/"+x.query.search[0].title;
             wikiData = "<a href=https://en.wikipedia.org/wiki/"+x.query.search[0].title+">"+x.query.search[0].title+"</a><p>" + x.query.search[0].snippet + "</p></li><br><p>"+citation+"</p>";
 
-            clearTimeout(wikiRequestTimeout);
             infoWindow.setContent(wikiData);
         }
+    }).fail(function (jqXHR, textStatus) {
+       wikiData = 'failed to get wikipedia resources';
+       infoWindow.setContent(wikiData);
     });
 
     return false;
 }
 
-var VM = new viewModel();
-ko.applyBindings(VM);
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 35.690202, lng: 139.716459},
+        zoom: 12
+    });
+
+    bounds = new google.maps.LatLngBounds();
+
+    largeInfoWindow = new google.maps.InfoWindow();
+
+    var VM = new viewModel();
+    ko.applyBindings(VM);
+}
+
+function mapError() {
+    console.log("error");
+}
