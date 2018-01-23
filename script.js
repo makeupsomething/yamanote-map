@@ -64,6 +64,7 @@ var viewModel = function () {
         bounds.extend(marker.position);
 
         //Add listener to markers to open info window on click
+        /*jshint loopfunc: true */
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfoWindow);
         });
