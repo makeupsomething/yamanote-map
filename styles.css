@@ -77,7 +77,7 @@ h1 {
 }
 
 #location-list {
-  flex: 1 1 0; /* flex: 1, which you had before, is equivalent but doesn't work */
+  flex: 1 1 0;
   height: 600px;
   flex-direction: column;
   overflow: scroll;
