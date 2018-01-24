@@ -3,21 +3,27 @@
   <head>
     <title>Yamanote Line Stations</title>
     <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-      <button data-bind="click: toggleSidebar" class="btn">Toggle</button> 
-      <div class="container" data-bind="style: { 'width': sidebarSize }">   
-          <div class="options-box" data-bind="visible: contentVisible">
-            <label>Filter Stations</label>
-            <input id="filter-list-text" type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'" placeholder="Eg. Shinjuku Station">
-            <ul name="value" id="location-list" data-bind="foreach: $root.filteredItems">
-                <li><button data-bind="text: title, click: $parent.clickLocation"></button></li>   
-            </ul>
+  <body> 
+    <div class="container">
+      <div class="row">   
+        <div class="col-2">
+          <label>Filter Stations</label>
+          <input id="filter-list-text" type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'" placeholder="Eg. Shinjuku Station">
+          <div id="location-list" name="value" data-bind="foreach: $root.filteredItems">
+            <button class="btn btn-sm" id="location-button" data-bind="text: title, click: $parent.clickLocation"></button><br>
           </div>
+        </div>
+        <div class="col-10">
+          <p>ff</p>
+        </div>
+        <div class="col-10" id="map"></div>
       </div>
-      <div data-bind="style: { 'width': mapSize }" id="map"></div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
     <script src="script.js"></script> 

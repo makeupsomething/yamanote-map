@@ -69,3 +69,16 @@ h1 {
 #filter-list-text {
   width: 84%;
 }
+
+#location-button {
+  background-color: cornsilk;
+  width: 90px !important;
+  white-space: normal;
+}
+
+#location-list {
+  flex: 1 1 0; /* flex: 1, which you had before, is equivalent but doesn't work */
+  height: 600px;
+  flex-direction: column;
+  overflow: scroll;
+}

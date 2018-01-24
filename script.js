@@ -48,7 +48,7 @@ var viewModel = function () {
         {title: 'Tokyo Station', location: {lat: 35.681167, lng: 139.767052}},
         {title: 'Kanda Station', location: {lat: 35.691822, lng: 139.770932}},
         {title: 'Akihabara Station', location: {lat: 35.698353, lng: 139.773114}},
-        {title: 'Okachimatchi Station', location: {lat: 35.707654, lng: 139.774805}},
+        {title: 'Okachimachi Station', location: {lat: 35.707654, lng: 139.774805}},
         {title: 'Ueno Station', location: {lat: 35.712364, lng: 139.776188}},
         {title: 'Uguisudani Station', location: {lat: 35.721457, lng: 139.778013}},
         {title: 'Nippori Station', location: {lat: 35.728158, lng: 139.770641}},
@@ -197,5 +197,5 @@ function initMap() {
 }
 
 function mapError() {
-    console.log("error");
+    alert("Could not load map, plese try again later");
 }
